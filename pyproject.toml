@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "canable25"
+version = "0.1.1"
+description = "Windows native WinUSB SDK for ElmueSoft CANable 2.5 Candlelight"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []
+license-files = ["THIRD_PARTY_NOTICES.md"]
+
+[project.scripts]
+canable25 = "canable25.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+canable25 = ["py.typed"]

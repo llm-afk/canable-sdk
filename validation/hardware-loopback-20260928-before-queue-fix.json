@@ -1,0 +1,606 @@
+{
+  "started_utc": "2026-09-28T05:39:19.370681+00:00",
+  "mode": "internal_loopback",
+  "serial": "20903498384550052",
+  "external_can_connected": false,
+  "cases": [
+    {
+      "sent": 1,
+      "received": 1,
+      "tx_events": 1,
+      "timestamped_events": 2,
+      "host_dropped": 0,
+      "event_kinds": {
+        "debug": 4,
+        "tx_echo": 1,
+        "frame": 1
+      },
+      "elapsed_seconds": 0.062,
+      "usb_write_bytes": 8,
+      "name": "classic_std_0",
+      "nominal_timing": {
+        "brp": 1,
+        "seg1": 119,
+        "seg2": 40,
+        "sjw": 40,
+        "clock_hz": 160000000
+      },
+      "data_timing": null,
+      "error_state": {
+        "state": 0,
+        "rx_errors": 0,
+        "tx_errors": 0
+      },
+      "stopped_state": {
+        "state": 4,
+        "rx_errors": 0,
+        "tx_errors": 0
+      }
+    },
+    {
+      "sent": 1,
+      "received": 1,
+      "tx_events": 1,
+      "timestamped_events": 2,
+      "host_dropped": 0,
+      "event_kinds": {
+        "debug": 4,
+        "tx_echo": 1,
+        "frame": 1
+      },
+      "elapsed_seconds": 0.063,
+      "usb_write_bytes": 9,
+      "name": "classic_std_1",
+      "nominal_timing": {
+        "brp": 1,
+        "seg1": 119,
+        "seg2": 40,
+        "sjw": 40,
+        "clock_hz": 160000000
+      },
+      "data_timing": null,
+      "error_state": {
+        "state": 0,
+        "rx_errors": 0,
+        "tx_errors": 0
+      },
+      "stopped_state": {
+        "state": 4,
+        "rx_errors": 0,
+        "tx_errors": 0
+      }
+    },
+    {
+      "sent": 1,
+      "received": 1,
+      "tx_events": 1,
+      "timestamped_events": 2,
+      "host_dropped": 0,
+      "event_kinds": {
+        "debug": 4,
+        "tx_echo": 1,
+        "frame": 1
+      },
+      "elapsed_seconds": 0.062,
+      "usb_write_bytes": 16,
+      "name": "classic_std_8",
+      "nominal_timing": {
+        "brp": 1,
+        "seg1": 119,
+        "seg2": 40,
+        "sjw": 40,
+        "clock_hz": 160000000
+      },
+      "data_timing": null,
+      "error_state": {
+        "state": 0,
+        "rx_errors": 0,
+        "tx_errors": 0
+      },
+      "stopped_state": {
+        "state": 4,
+        "rx_errors": 0,
+        "tx_errors": 0
+      }
+    },
+    {
+      "sent": 1,
+      "received": 1,
+      "tx_events": 1,
+      "timestamped_events": 2,
+      "host_dropped": 0,
+      "event_kinds": {
+        "debug": 4,
+        "tx_echo": 1,
+        "frame": 1
+      },
+      "elapsed_seconds": 0.063,
+      "usb_write_bytes": 9,
+      "name": "rtr_std_0",
+      "nominal_timing": {
+        "brp": 1,
+        "seg1": 119,
+        "seg2": 40,
+        "sjw": 40,
+        "clock_hz": 160000000
+      },
+      "data_timing": null,
+      "error_state": {
+        "state": 0,
+        "rx_errors": 0,
+        "tx_errors": 0
+      },
+      "stopped_state": {
+        "state": 4,
+        "rx_errors": 0,
+        "tx_errors": 0
+      }
+    },
+    {
+      "sent": 1,
+      "received": 1,
+      "tx_events": 1,
+      "timestamped_events": 2,
+      "host_dropped": 0,
+      "event_kinds": {
+        "debug": 4,
+        "tx_echo": 1,
+        "frame": 1
+      },
+      "elapsed_seconds": 0.062,
+      "usb_write_bytes": 9,
+      "name": "rtr_std_8",
+      "nominal_timing": {
+        "brp": 1,
+        "seg1": 119,
+        "seg2": 40,
+        "sjw": 40,
+        "clock_hz": 160000000
+      },
+      "data_timing": null,
+      "error_state": {
+        "state": 0,
+        "rx_errors": 0,
+        "tx_errors": 0
+      },
+      "stopped_state": {
+        "state": 4,
+        "rx_errors": 0,
+        "tx_errors": 0
+      }
+    },
+    {
+      "sent": 1,
+      "received": 1,
+      "tx_events": 1,
+      "timestamped_events": 2,
+      "host_dropped": 0,
+      "event_kinds": {
+        "debug": 4,
+        "tx_echo": 1,
+        "frame": 1
+      },
+      "elapsed_seconds": 0.063,
+      "usb_write_bytes": 8,
+      "name": "classic_ext_0",
+      "nominal_timing": {
+        "brp": 1,
+        "seg1": 119,
+        "seg2": 40,
+        "sjw": 40,
+        "clock_hz": 160000000
+      },
+      "data_timing": null,
+      "error_state": {
+        "state": 0,
+        "rx_errors": 0,
+        "tx_errors": 0
+      },
+      "stopped_state": {
+        "state": 4,
+        "rx_errors": 0,
+        "tx_errors": 0
+      }
+    },
+    {
+      "sent": 1,
+      "received": 1,
+      "tx_events": 1,
+      "timestamped_events": 2,
+      "host_dropped": 0,
+      "event_kinds": {
+        "debug": 4,
+        "tx_echo": 1,
+        "frame": 1
+      },
+      "elapsed_seconds": 0.062,
+      "usb_write_bytes": 9,
+      "name": "classic_ext_1",
+      "nominal_timing": {
+        "brp": 1,
+        "seg1": 119,
+        "seg2": 40,
+        "sjw": 40,
+        "clock_hz": 160000000
+      },
+      "data_timing": null,
+      "error_state": {
+        "state": 0,
+        "rx_errors": 0,
+        "tx_errors": 0
+      },
+      "stopped_state": {
+        "state": 4,
+        "rx_errors": 0,
+        "tx_errors": 0
+      }
+    },
+    {
+      "sent": 1,
+      "received": 1,
+      "tx_events": 1,
+      "timestamped_events": 2,
+      "host_dropped": 0,
+      "event_kinds": {
+        "debug": 4,
+        "tx_echo": 1,
+        "frame": 1
+      },
+      "elapsed_seconds": 0.063,
+      "usb_write_bytes": 16,
+      "name": "classic_ext_8",
+      "nominal_timing": {
+        "brp": 1,
+        "seg1": 119,
+        "seg2": 40,
+        "sjw": 40,
+        "clock_hz": 160000000
+      },
+      "data_timing": null,
+      "error_state": {
+        "state": 0,
+        "rx_errors": 0,
+        "tx_errors": 0
+      },
+      "stopped_state": {
+        "state": 4,
+        "rx_errors": 0,
+        "tx_errors": 0
+      }
+    },
+    {
+      "sent": 1,
+      "received": 1,
+      "tx_events": 1,
+      "timestamped_events": 2,
+      "host_dropped": 0,
+      "event_kinds": {
+        "debug": 4,
+        "tx_echo": 1,
+        "frame": 1
+      },
+      "elapsed_seconds": 0.062,
+      "usb_write_bytes": 9,
+      "name": "rtr_ext_0",
+      "nominal_timing": {
+        "brp": 1,
+        "seg1": 119,
+        "seg2": 40,
+        "sjw": 40,
+        "clock_hz": 160000000
+      },
+      "data_timing": null,
+      "error_state": {
+        "state": 0,
+        "rx_errors": 0,
+        "tx_errors": 0
+      },
+      "stopped_state": {
+        "state": 4,
+        "rx_errors": 0,
+        "tx_errors": 0
+      }
+    },
+    {
+      "sent": 1,
+      "received": 1,
+      "tx_events": 1,
+      "timestamped_events": 2,
+      "host_dropped": 0,
+      "event_kinds": {
+        "debug": 4,
+        "tx_echo": 1,
+        "frame": 1
+      },
+      "elapsed_seconds": 0.063,
+      "usb_write_bytes": 9,
+      "name": "rtr_ext_8",
+      "nominal_timing": {
+        "brp": 1,
+        "seg1": 119,
+        "seg2": 40,
+        "sjw": 40,
+        "clock_hz": 160000000
+      },
+      "data_timing": null,
+      "error_state": {
+        "state": 0,
+        "rx_errors": 0,
+        "tx_errors": 0
+      },
+      "stopped_state": {
+        "state": 4,
+        "rx_errors": 0,
+        "tx_errors": 0
+      }
+    },
+    {
+      "sent": 16,
+      "received": 16,
+      "tx_events": 16,
+      "timestamped_events": 32,
+      "host_dropped": 0,
+      "event_kinds": {
+        "debug": 4,
+        "tx_echo": 16,
+        "frame": 16
+      },
+      "elapsed_seconds": 0.078,
+      "usb_write_bytes": 382,
+      "name": "fd_all_lengths_ext0_brs0",
+      "nominal_timing": {
+        "brp": 1,
+        "seg1": 119,
+        "seg2": 40,
+        "sjw": 40,
+        "clock_hz": 160000000
+      },
+      "data_timing": {
+        "brp": 1,
+        "seg1": 23,
+        "seg2": 8,
+        "sjw": 8,
+        "clock_hz": 160000000
+      },
+      "error_state": {
+        "state": 0,
+        "rx_errors": 0,
+        "tx_errors": 0
+      },
+      "stopped_state": {
+        "state": 4,
+        "rx_errors": 0,
+        "tx_errors": 0
+      }
+    },
+    {
+      "sent": 16,
+      "received": 16,
+      "tx_events": 16,
+      "timestamped_events": 32,
+      "host_dropped": 0,
+      "event_kinds": {
+        "debug": 5,
+        "tx_echo": 16,
+        "frame": 16
+      },
+      "elapsed_seconds": 0.062,
+      "usb_write_bytes": 382,
+      "name": "fd_all_lengths_ext0_brs1",
+      "nominal_timing": {
+        "brp": 1,
+        "seg1": 119,
+        "seg2": 40,
+        "sjw": 40,
+        "clock_hz": 160000000
+      },
+      "data_timing": {
+        "brp": 1,
+        "seg1": 23,
+        "seg2": 8,
+        "sjw": 8,
+        "clock_hz": 160000000
+      },
+      "error_state": {
+        "state": 0,
+        "rx_errors": 0,
+        "tx_errors": 0
+      },
+      "stopped_state": {
+        "state": 4,
+        "rx_errors": 0,
+        "tx_errors": 0
+      }
+    },
+    {
+      "sent": 16,
+      "received": 16,
+      "tx_events": 16,
+      "timestamped_events": 32,
+      "host_dropped": 0,
+      "event_kinds": {
+        "debug": 4,
+        "tx_echo": 16,
+        "frame": 16
+      },
+      "elapsed_seconds": 0.063,
+      "usb_write_bytes": 382,
+      "name": "fd_all_lengths_ext1_brs0",
+      "nominal_timing": {
+        "brp": 1,
+        "seg1": 119,
+        "seg2": 40,
+        "sjw": 40,
+        "clock_hz": 160000000
+      },
+      "data_timing": {
+        "brp": 1,
+        "seg1": 23,
+        "seg2": 8,
+        "sjw": 8,
+        "clock_hz": 160000000
+      },
+      "error_state": {
+        "state": 0,
+        "rx_errors": 0,
+        "tx_errors": 0
+      },
+      "stopped_state": {
+        "state": 4,
+        "rx_errors": 0,
+        "tx_errors": 0
+      }
+    },
+    {
+      "sent": 16,
+      "received": 16,
+      "tx_events": 16,
+      "timestamped_events": 32,
+      "host_dropped": 0,
+      "event_kinds": {
+        "debug": 5,
+        "tx_echo": 16,
+        "frame": 16
+      },
+      "elapsed_seconds": 0.062,
+      "usb_write_bytes": 382,
+      "name": "fd_all_lengths_ext1_brs1",
+      "nominal_timing": {
+        "brp": 1,
+        "seg1": 119,
+        "seg2": 40,
+        "sjw": 40,
+        "clock_hz": 160000000
+      },
+      "data_timing": {
+        "brp": 1,
+        "seg1": 23,
+        "seg2": 8,
+        "sjw": 8,
+        "clock_hz": 160000000
+      },
+      "error_state": {
+        "state": 0,
+        "rx_errors": 0,
+        "tx_errors": 0
+      },
+      "stopped_state": {
+        "state": 4,
+        "rx_errors": 0,
+        "tx_errors": 0
+      }
+    },
+    {
+      "sent": 4,
+      "received": 4,
+      "tx_events": 4,
+      "timestamped_events": 8,
+      "host_dropped": 0,
+      "event_kinds": {
+        "debug": 4,
+        "tx_echo": 4,
+        "frame": 4
+      },
+      "elapsed_seconds": 0.063,
+      "usb_write_bytes": 64,
+      "name": "usb_out_exact_64_bytes",
+      "nominal_timing": {
+        "brp": 1,
+        "seg1": 119,
+        "seg2": 40,
+        "sjw": 40,
+        "clock_hz": 160000000
+      },
+      "data_timing": null,
+      "error_state": {
+        "state": 0,
+        "rx_errors": 0,
+        "tx_errors": 0
+      },
+      "stopped_state": {
+        "state": 4,
+        "rx_errors": 0,
+        "tx_errors": 0
+      }
+    },
+    {
+      "sent": 30,
+      "received": 30,
+      "tx_events": 30,
+      "timestamped_events": 60,
+      "host_dropped": 0,
+      "event_kinds": {
+        "debug": 5,
+        "tx_echo": 30,
+        "frame": 30
+      },
+      "elapsed_seconds": 0.078,
+      "usb_write_bytes": 2048,
+      "name": "usb_out_exact_2048_bytes",
+      "nominal_timing": {
+        "brp": 1,
+        "seg1": 119,
+        "seg2": 40,
+        "sjw": 40,
+        "clock_hz": 160000000
+      },
+      "data_timing": {
+        "brp": 1,
+        "seg1": 23,
+        "seg2": 8,
+        "sjw": 8,
+        "clock_hz": 160000000
+      },
+      "error_state": {
+        "state": 0,
+        "rx_errors": 0,
+        "tx_errors": 0
+      },
+      "stopped_state": {
+        "state": 4,
+        "rx_errors": 0,
+        "tx_errors": 0
+      }
+    }
+  ],
+  "passed": false,
+  "discovery": [
+    {
+      "path": "\\\\?\\usb#vid_1d50&pid_606f&mi_00#7&330582f6&0&0000#{d62f2386-83bc-4ab7-9e4a-2856d8e8da56}",
+      "serial": "20903498384550052",
+      "product": "Candlelight 2.5 - Multiboard",
+      "interface": 0,
+      "channel": 0,
+      "firmware": 2492419,
+      "hardware": 512,
+      "channel_count": 1,
+      "features": 58683,
+      "can_clock_hz": 160000000,
+      "error": null
+    },
+    {
+      "path": "\\\\?\\usb#vid_1d50&pid_606f&mi_01#7&330582f6&0&0001#{c25b4308-04d3-11e6-b3ea-6057189e6443}",
+      "serial": "20903498384550052",
+      "product": "Candlelight 2.5 - Multiboard",
+      "interface": 1,
+      "channel": null,
+      "firmware": null,
+      "hardware": null,
+      "channel_count": null,
+      "features": 0,
+      "can_clock_hz": null,
+      "error": null
+    }
+  ],
+  "board": {
+    "mcu_device_id": 1128,
+    "mcu": "STM32G431",
+    "board": "Multiboard",
+    "flags": 0
+  },
+  "boot_pin_enabled": true,
+  "failure": "AssertionError: firmware error event: Event(kind='error', channel=0, host_timestamp_ns=580157756008100, raw=b'\\x12\\r\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x04\\x00\\x00 \\x9b\\x00\\x00', frame=None, device_timestamp_us=39712, marker=None, error_id=0, error_data=b'\\x00\\x00\\x00\\x00\\x00\\x04\\x00\\x00', text='', bus_load=None)",
+  "finished_utc": "2026-09-28T05:39:20.452327+00:00",
+  "total_received": 108,
+  "total_tx_events": 108
+}

@@ -1,0 +1,47 @@
+{
+  "started_utc": "2026-09-28T05:40:05.042537+00:00",
+  "mode": "internal_loopback",
+  "serial": "20903498384550052",
+  "external_can_connected": false,
+  "cases": [],
+  "passed": false,
+  "discovery": [
+    {
+      "path": "\\\\?\\usb#vid_1d50&pid_606f&mi_00#7&330582f6&0&0000#{d62f2386-83bc-4ab7-9e4a-2856d8e8da56}",
+      "serial": "20903498384550052",
+      "product": "Candlelight 2.5 - Multiboard",
+      "interface": 0,
+      "channel": 0,
+      "firmware": 2492419,
+      "hardware": 512,
+      "channel_count": 1,
+      "features": 58683,
+      "can_clock_hz": 160000000,
+      "error": null
+    },
+    {
+      "path": "\\\\?\\usb#vid_1d50&pid_606f&mi_01#7&330582f6&0&0001#{c25b4308-04d3-11e6-b3ea-6057189e6443}",
+      "serial": "20903498384550052",
+      "product": "Candlelight 2.5 - Multiboard",
+      "interface": 1,
+      "channel": null,
+      "firmware": null,
+      "hardware": null,
+      "channel_count": null,
+      "features": 0,
+      "can_clock_hz": null,
+      "error": null
+    }
+  ],
+  "board": {
+    "mcu_device_id": 1128,
+    "mcu": "STM32G431",
+    "board": "Multiboard",
+    "flags": 0
+  },
+  "boot_pin_enabled": true,
+  "failure": "AssertionError: Rx mismatch: expected=[Frame(arbitration_id=291, data=b'', extended=False, fd=False, brs=False, remote=False, remote_dlc=0, esi=False)], received=[Frame(arbitration_id=1537, data=b'\\x01\\x01\\x01\\x01\\x01\\x01\\x01\\x01', extended=False, fd=False, brs=False, remote=False, remote_dlc=0, esi=False)]",
+  "finished_utc": "2026-09-28T05:40:05.062343+00:00",
+  "total_received": 0,
+  "total_tx_events": 0
+}

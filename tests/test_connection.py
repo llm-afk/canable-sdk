@@ -8,7 +8,7 @@ class ConnectionTests(unittest.TestCase):
         with patch("canable.connection.Device.open", return_value=device) as opened:
             with open_can(data_bitrate=4_000_000) as connection:
                 opened.assert_called_once_with(serial=None)
-                device.channel.assert_called_once_with(0)
+                device.channel.assert_called_once_with(0, queue_size=4096)
                 device.channel.return_value.configure.assert_called_once_with(
                     bitrate=1_000_000, data_bitrate=4_000_000,
                     sample_point=0.75, data_sample_point=0.75)

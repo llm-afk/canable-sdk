@@ -3,7 +3,8 @@ import math
 import threading
 import time
 from .device import Device, discover
-from .errors import StateError, CanEventError
+from .errors import StateError, CanEventError, UnsupportedError
+from .models import CanFilter, Feature
 
 class Connection:
     """One connection, one receive consumer and one chosen receive mode.
@@ -23,12 +24,47 @@ class Connection:
     @classmethod
     def open(cls, *, serial=None, channel=0, bitrate=1_000_000,
              data_bitrate=None, mode="normal", sample_point=0.75,
-             data_sample_point=0.75, one_shot=False):
+             data_sample_point=0.75, one_shot=False, queue_size=4096,
+             filters=None, termination=None, bus_load_interval_ms=None):
+        # Validate application input before opening or configuring any hardware.
+        for name, value in (("channel", channel), ("queue_size", queue_size),
+                            ("bitrate", bitrate)):
+            if type(value) is not int or value < (0 if name == "channel" else 1):
+                raise ValueError(f"{name} must be an integer >= {0 if name == 'channel' else 1}")
+        if data_bitrate is not None and (type(data_bitrate) is not int or data_bitrate < bitrate):
+            raise ValueError("data_bitrate must be an integer >= bitrate")
+        for value in (sample_point, data_sample_point):
+            if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value) or not 0 < value < 1:
+                raise ValueError("sample points must be finite and between 0 and 1")
+        if mode not in ("normal", "listen_only", "internal_loopback", "external_loopback"):
+            raise ValueError("invalid CAN mode")
+        if type(one_shot) is not bool or (termination is not None and type(termination) is not bool):
+            raise TypeError("one_shot and termination must be bool (termination also accepts None)")
+        if bus_load_interval_ms is not None and (
+                type(bus_load_interval_ms) is not int or
+                not 0 <= bus_load_interval_ms <= 10000 or bus_load_interval_ms % 100):
+            raise ValueError("bus_load_interval_ms must be 0 or 100..10000 in 100 ms steps")
+        if filters is not None:
+            filters = tuple(filters)
+            if len(filters) > 8:
+                raise ValueError("firmware supports at most 8 acceptance filters")
+            if any(not isinstance(rule, CanFilter) for rule in filters):
+                raise TypeError("filters must contain CanFilter instances")
         device = Device.open(serial=serial)
         try:
-            ch = device.channel(channel)
+            ch = device.channel(channel, queue_size=queue_size)
+            if termination is not None and not ch.info.features & Feature.TERMINATION:
+                raise UnsupportedError("board has no software-controlled termination")
             ch.configure(bitrate=bitrate, data_bitrate=data_bitrate,
                          sample_point=sample_point, data_sample_point=data_sample_point)
+            if filters is not None:
+                ch.clear_filters()
+                for rule in filters:
+                    ch.add_filter(rule.can_id, rule.mask, extended=rule.extended)
+            if termination is not None:
+                ch.set_termination(termination)
+            if bus_load_interval_ms is not None:
+                ch.set_bus_load_interval(bus_load_interval_ms)
             ch.start(mode=mode, one_shot=one_shot)
             return cls(device, ch)
         except BaseException:
@@ -133,8 +169,24 @@ class Connection:
     def __exit__(self, *exc):
         self.close()
 
-def open_can(*, serial=None, **kwargs):
-    return Connection.open(serial=serial, **kwargs)
+def open_can(*, serial=None, channel=0, bitrate=1_000_000,
+             data_bitrate=None, mode="normal", sample_point=0.75,
+             data_sample_point=0.75, one_shot=False, queue_size=4096,
+             filters=None, termination=None, bus_load_interval_ms=None):
+    """Configure a channel before starting it; close with a context manager.
+
+    filters: up to eight CanFilter rules; None/empty accepts all IDs.
+    termination: None leaves the resistor unchanged; bool requires board support.
+    bus_load_interval_ms: None leaves the firmware default; 0 disables reports;
+        100..10000 enables reports at multiples of 100 ms.
+    queue_size: host event queue capacity (not a firmware transmit buffer).
+    """
+    return Connection.open(
+        serial=serial, channel=channel, bitrate=bitrate,
+        data_bitrate=data_bitrate, mode=mode, sample_point=sample_point,
+        data_sample_point=data_sample_point, one_shot=one_shot,
+        queue_size=queue_size, filters=filters, termination=termination,
+        bus_load_interval_ms=bus_load_interval_ms)
 
 def list_devices():
     """Read-only discovery. One DeviceInfo per CAN interface, including failures.

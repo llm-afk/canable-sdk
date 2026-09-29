@@ -1,0 +1,10 @@
+{
+  "version": "0.1.5",
+  "source_tests": 83,
+  "installed_tests": 83,
+  "cli": "passed",
+  "configuration_before_start": "passed",
+  "invalid_input_before_usb": "passed",
+  "configuration_failure_cleanup": "passed",
+  "hardware_test": false
+}

@@ -22,6 +22,23 @@ FD_LENGTHS = (0, 1, 2, 3, 4, 5, 6, 7, 8, 12, 16, 20, 24, 32, 48, 64)
 
 
 @dataclass(frozen=True)
+class CanFilter:
+    """Accept IDs matching (received_id & mask) == (can_id & mask)."""
+    can_id: int
+    mask: int
+    extended: bool = False
+
+    def __post_init__(self):
+        if type(self.extended) is not bool:
+            raise TypeError("extended must be bool")
+        maximum = 0x1FFFFFFF if self.extended else 0x7FF
+        for name in ("can_id", "mask"):
+            value = getattr(self, name)
+            if type(value) is not int or not 0 <= value <= maximum:
+                raise ValueError(f"{name} outside selected 11/29-bit range")
+
+
+@dataclass(frozen=True)
 class Frame:
     arbitration_id: int
     data: bytes = b""

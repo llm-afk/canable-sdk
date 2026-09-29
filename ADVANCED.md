@@ -1,12 +1,12 @@
 # Advanced API reference
 
-常用接口见 [README.md](README.md)。本文介绍设备、通道、协议和维护接口。
+应用连接及启动配置使用 open_can，参数见 [README.md](README.md)。本文介绍设备、通道、协议和维护接口。
 
 # CANable SDK
 
 独立、零第三方运行时依赖的 Python 包，基于 Windows 自带 WinUSB，通过 `ctypes` 调用。
 支持 CANable 固件的 **Candlelight / Elmue 扩展协议**，不支持 SLCAN。
-当前版本 0.1.4 已通过离线与安装验证；0.1.3 曾通过一台 STM32G431 Multiboard 的内部环回验收。
+当前版本 0.1.5 已通过离线与安装验证；0.1.3 曾通过一台 STM32G431 Multiboard 的内部环回验收。
 外部 CAN 总线互通、性能、长时间运行仍待验收。
 
 ## 支持范围
@@ -52,7 +52,7 @@ python -m canable info --serial YOUR_SERIAL
 不修改驱动或注册表。验证设备使用的 CAN GUID 为 `D62F2386-83BC-4AB7-9E4A-2856D8E8DA56`。
 `info` 只读取无需激活 Elmue 的字段；更详细的板型通过配置后 `device.board_info()` 查询。
 
-## 最小用法
+## Device/Channel 用法
 
 ```python
 from canable import Device, Frame

@@ -5,9 +5,9 @@ import time
 import unittest
 from unittest.mock import patch
 
-from canable25 import Device, FirmwareError, ProtocolError, StateError, TransportError, UnsupportedError
-from canable25.device import _probe, discover
-from canable25.winusb import InterfaceData, InterfaceDescriptor, Overlapped, PipeInfo, Setup
+from canable import Device, FirmwareError, ProtocolError, StateError, TransportError, UnsupportedError
+from canable.device import _probe, discover
+from canable.winusb import InterfaceData, InterfaceDescriptor, Overlapped, PipeInfo, Setup
 from test_session import FakeTransport, fixture
 
 
@@ -30,31 +30,31 @@ class DeviceTests(unittest.TestCase):
         self.assertEqual(ctypes.sizeof(Overlapped), 32 if is64 else 20)
 
     def test_discovery_retains_access_errors(self):
-        with patch("canable25.device.enumerate_paths", return_value=["busy"]), patch(
-                "canable25.device.WinUSBTransport", side_effect=TransportError("open", 5)):
+        with patch("canable.device.enumerate_paths", return_value=["busy"]), patch(
+                "canable.device.WinUSBTransport", side_effect=TransportError("open", 5)):
             entries = discover()
         self.assertEqual(entries[0].path, "busy")
         self.assertIn("5", entries[0].error)
 
     def test_discovery_closes_on_probe_failure(self):
         transport = ContextFake()
-        with patch("canable25.device.enumerate_paths", return_value=["fake"]), patch(
-                "canable25.device.WinUSBTransport", return_value=transport), patch(
-                "canable25.device._probe", side_effect=ProtocolError("short version")):
+        with patch("canable.device.enumerate_paths", return_value=["fake"]), patch(
+                "canable.device.WinUSBTransport", return_value=transport), patch(
+                "canable.device._probe", side_effect=ProtocolError("short version")):
             self.assertIsNotNone(discover()[0].error)
         self.assertTrue(transport.closed)
 
     def test_open_rejects_ambiguous_devices(self):
         a, b = FakeTransport(), FakeTransport()
         b.serial = "OTHER"
-        with patch("canable25.device.discover", return_value=[_probe(a), _probe(b)]):
+        with patch("canable.device.discover", return_value=[_probe(a), _probe(b)]):
             with self.assertRaises(StateError):
                 Device.open()
 
     def test_open_rejects_old_firmware_before_mutation(self):
         from dataclasses import replace
         info = replace(_probe(FakeTransport()), firmware=0x260518)
-        with patch("canable25.device.discover", return_value=[info]), patch("canable25.device.WinUSBTransport") as factory:
+        with patch("canable.device.discover", return_value=[info]), patch("canable.device.WinUSBTransport") as factory:
             with self.assertRaises(UnsupportedError):
                 Device.open()
             factory.assert_not_called()
@@ -62,7 +62,7 @@ class DeviceTests(unittest.TestCase):
     def test_open_requires_all_channels(self):
         from dataclasses import replace
         info = replace(_probe(FakeTransport()), channel_count=2)
-        with patch("canable25.device.discover", return_value=[info]):
+        with patch("canable.device.discover", return_value=[info]):
             with self.assertRaises(StateError):
                 Device.open()
 
@@ -70,8 +70,8 @@ class DeviceTests(unittest.TestCase):
         transport = FakeTransport()
         info = _probe(transport)
         transport.serial = "NEW"
-        with patch("canable25.device.discover", return_value=[info]), patch(
-                "canable25.device.WinUSBTransport", return_value=transport):
+        with patch("canable.device.discover", return_value=[info]), patch(
+                "canable.device.WinUSBTransport", return_value=transport):
             with self.assertRaises(StateError):
                 Device.open(serial="TEST")
         self.assertTrue(transport.closed)

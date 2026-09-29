@@ -1,7 +1,7 @@
 """Passive CAN monitor. Run: python examples/receive.py SERIAL"""
 import sys
 
-from canable25 import Device
+from canable import Device
 
 with Device.open(serial=sys.argv[1]) as device:
     channel = device.channel(0)

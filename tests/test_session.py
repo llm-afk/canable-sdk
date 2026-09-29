@@ -4,9 +4,9 @@ import threading
 import time
 import unittest
 
-from canable25 import (Device, DeviceInfo, Feature, FirmwareError, Frame, ProtocolError,
+from canable import (Device, DeviceInfo, Feature, FirmwareError, Frame, ProtocolError,
                        QueueOverflow, ReceiveTimeout, SendUncertain, StateError, UnsupportedError)
-from canable25.device import _probe
+from canable.device import _probe
 
 
 FEATURES = Feature(0xE53B)

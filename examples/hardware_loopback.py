@@ -14,9 +14,9 @@ import time
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from canable25 import Device, Frame, discover
-from canable25.models import FD_LENGTHS
-from canable25.protocol import encode_batch
+from canable import Device, Frame, discover
+from canable.models import FD_LENGTHS
+from canable.protocol import encode_batch
 
 
 def exercise(channel, frames, *, batch, rounds=1, expected=None):

@@ -2,6 +2,7 @@
 $ErrorActionPreference = 'Stop'
 $sdkBuilding = $args.Count -gt 0 -and $args[0] -eq 'build'
 $sdkCandidates = @()
+if ($env:CANABLE_PYTHON) { $sdkCandidates += $env:CANABLE_PYTHON }
 if ($env:CANABLE25_PYTHON) { $sdkCandidates += $env:CANABLE25_PYTHON }
 $sdkCommand = Get-Command python.exe -ErrorAction SilentlyContinue
 if ($sdkCommand -and $sdkCommand.Source -notlike '*WindowsApps*') { $sdkCandidates += $sdkCommand.Source }
@@ -28,8 +29,8 @@ foreach ($sdkCandidate in ($sdkCandidates | Select-Object -Unique)) {
     if ($sdkProbeExit -eq 0) { $sdkPython = $sdkCandidate; break }
 }
 if (-not $sdkPython) {
-    if ($sdkBuilding) { throw 'Build needs Python 3.10+, setuptools>=77 and wheel. Set CANABLE25_PYTHON to an environment containing these tools.' }
-    throw 'Python 3.10+ was not found. Install Python or set CANABLE25_PYTHON to python.exe.'
+    if ($sdkBuilding) { throw 'Build needs Python 3.10+, setuptools>=77 and wheel. Set CANABLE_PYTHON to an environment containing these tools.' }
+    throw 'Python 3.10+ was not found. Install Python or set CANABLE_PYTHON to python.exe.'
 }
 $sdkPreviousPath = $env:PYTHONPATH
 try {
@@ -44,7 +45,7 @@ try {
         if ($args.Count -gt 1) { $sdkExtraArgs = $args[1..($args.Count - 1)] }
         & $sdkPython (Join-Path $PSScriptRoot 'examples\hardware_loopback.py') @sdkExtraArgs
     } else {
-        & $sdkPython -m canable25 @args
+        & $sdkPython -m canable @args
     }
     $sdkExitCode = $LASTEXITCODE
 } finally {

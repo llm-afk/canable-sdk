@@ -4,8 +4,8 @@ from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
 
-from canable25 import ProtocolError
-from canable25.winusb import U8, U32, WinUSBTransport, _registered_interface_guids
+from canable import ProtocolError
+from canable.winusb import U8, U32, WinUSBTransport, _registered_interface_guids
 
 
 class BulkAPIFake:

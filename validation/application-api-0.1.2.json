@@ -1,0 +1,22 @@
+{
+  "python": "3.11.7 (tags/v3.11.7:fa7a6f2, Dec  4 2023, 19:24:49) [MSC v.1937 64 bit (AMD64)]",
+  "packages": {
+    "mc-t": "0.2.0",
+    "canable25": "0.1.2"
+  },
+  "results": {
+    "mc_t": {
+      "tests": 54,
+      "passed": true,
+      "failures": 0,
+      "errors": 0
+    },
+    "canable25-sdk": {
+      "tests": 62,
+      "passed": true,
+      "failures": 0,
+      "errors": 0
+    }
+  },
+  "hardware_tested": false
+}

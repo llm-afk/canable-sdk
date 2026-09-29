@@ -75,7 +75,7 @@ class Device:
             raise StateError("cannot reserve all CAN interfaces; device may be busy or serial is ambiguous")
         for info in selected:
             if not info.features & Feature.ELMUE or (info.firmware or 0) < MIN_FIRMWARE:
-                raise UnsupportedError("SDK v0.1 requires Elmue Candlelight firmware >= 0x260803; no silent legacy fallback")
+                raise UnsupportedError(f"SDK requires Elmue Candlelight firmware >= 0x{MIN_FIRMWARE:06X}; no silent legacy fallback")
         transports, infos, dfu = {}, {}, None
         try:
             for info in selected:

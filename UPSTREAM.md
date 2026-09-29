@@ -18,3 +18,12 @@ Generated wheels, build products, bytecode and local virtual environments are no
 
 Hardware evidence is scoped to the exact adapter and configuration in VALIDATION.md.
 External CAN interoperability and long-running performance remain unverified.
+## Elmue compatibility floor
+
+Minimum firmware: `0x260618`. Compared upstream `1f201d7` (Source/) with
+`5852f8a` (Firmware/), accounting for the directory rename. Candlelight wire
+definitions, control requests, USB class, CAN implementation and settings are
+identical. The buffer change adds `GLB_ProtoElmue` to the TxBlob detection
+condition; it fixes legacy-mode parsing and leaves the SDK Elmue path unchanged.
+The SDK explicitly activates Elmue mode and still requires its capability bit.
+Versions below 0x260618 and non-Elmue adapters remain unsupported.

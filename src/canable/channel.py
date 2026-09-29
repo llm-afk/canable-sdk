@@ -117,7 +117,7 @@ class Channel:
             self.nominal_timing, self.data_timing = nominal, data
             self._fd, self._configured = data is not None, True
             if self._thread is None:
-                self._thread = threading.Thread(target=self._reader, name=f"canable25-rx-{self.index}", daemon=True)
+                self._thread = threading.Thread(target=self._reader, name=f"canable-rx-{self.index}", daemon=True)
                 self._thread.start()
             return self
 

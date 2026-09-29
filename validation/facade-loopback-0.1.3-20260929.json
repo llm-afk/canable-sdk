@@ -1,0 +1,55 @@
+{
+  "sdk_version": "0.1.3",
+  "serial": "20903498384550052",
+  "started_utc": "2026-09-29T06:15:25.808404+00:00",
+  "mode": "internal_loopback",
+  "external_can_connected": null,
+  "external_can_transmission": false,
+  "cases": [
+    {
+      "name": "frames",
+      "received": 20,
+      "completed_receipts": 20,
+      "error_state": {
+        "state": 0,
+        "rx_errors": 0,
+        "tx_errors": 0
+      },
+      "stopped_state": {
+        "state": 4,
+        "rx_errors": 0,
+        "tx_errors": 0
+      },
+      "host_dropped": 0,
+      "mixed_mode_rejected": true,
+      "bitrate": 1000000,
+      "data_bitrate": 4000000
+    },
+    {
+      "name": "events",
+      "received": 20,
+      "completed_receipts": 20,
+      "error_state": {
+        "state": 0,
+        "rx_errors": 0,
+        "tx_errors": 0
+      },
+      "stopped_state": {
+        "state": 4,
+        "rx_errors": 0,
+        "tx_errors": 0
+      },
+      "host_dropped": 0,
+      "mixed_mode_rejected": true,
+      "bitrate": 1000000,
+      "data_bitrate": 4000000
+    }
+  ],
+  "passed": true,
+  "final_state": {
+    "state": 4,
+    "rx_errors": 0,
+    "tx_errors": 0
+  },
+  "finished_utc": "2026-09-29T06:15:25.963960+00:00"
+}

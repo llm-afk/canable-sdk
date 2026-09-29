@@ -1,0 +1,10 @@
+{
+  "version": "0.1.4",
+  "distribution": "canable-sdk",
+  "source_tests": 75,
+  "installed_tests": 75,
+  "new_and_legacy_cli": "passed",
+  "single_implementation_identity": "passed",
+  "wheel_legacy_files": "shim only",
+  "hardware_test_this_turn": false
+}

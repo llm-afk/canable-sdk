@@ -2,9 +2,9 @@ import random
 import struct
 import unittest
 
-from canable25 import Frame, ProtocolError
-from canable25.models import TimingLimits
-from canable25.protocol import choose_timing, decode_transfer, encode_batch, encode_frame
+from canable import Frame, ProtocolError
+from canable.models import TimingLimits
+from canable.protocol import choose_timing, decode_transfer, encode_batch, encode_frame
 
 
 class ProtocolTests(unittest.TestCase):

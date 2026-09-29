@@ -39,3 +39,10 @@ class SendUncertain(CanableError):
 
 class ReceiveTimeout(CanableError, TimeoutError):
     pass
+
+
+class CanEventError(CanableError):
+    """Frame-only receive encountered a CAN error or unrecognized event."""
+    def __init__(self, event):
+        self.event = event
+        super().__init__(f"CAN event {event.kind}: error_id={event.error_id:#x}; inspect exception.event")

@@ -1,6 +1,6 @@
 """Explicitly sends ONE frame. Run: python examples/send_once.py SERIAL"""
 import sys
-from canable25 import Device, Frame
+from canable import Device, Frame
 
 with Device.open(serial=sys.argv[1]) as device:
     channel = device.channel(0)

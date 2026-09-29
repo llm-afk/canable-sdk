@@ -1,4 +1,4 @@
-"""Pure Elmue 2026-08-03 wire codec; no USB, threads or application protocols.
+"""Pure Elmue 2026-06-18+ wire codec; no USB, threads or application protocols.
 
 Wire definitions: Firmware/Candlelight/candlelight_def.h and control.c.
 """
@@ -9,7 +9,7 @@ from .models import BitTiming, Event, Frame, TimingLimits
 
 MAX_BLOB = 2048
 MAX_PENDING = 63  # Firmware reports overflow on an entirely exhausted 64-slot pool.
-MIN_FIRMWARE = 0x260803
+MIN_FIRMWARE = 0x260618
 
 
 def encode_frame(frame: Frame, marker: int = 0) -> bytes:

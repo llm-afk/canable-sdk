@@ -1,4 +1,4 @@
-"""Small application facade over the original Device/Channel contracts."""
+"""Application connection API for CANable devices and channels."""
 import math
 import threading
 import time
@@ -8,7 +8,7 @@ from .errors import StateError, CanEventError
 class Connection:
     """One connection, one receive consumer and one chosen receive mode.
 
-    recv() returns frames; recv_event()/legacy receive() return every event.
+    recv() returns frames; recv_event()/receive() return every event.
     Mixing the modes is rejected before consuming the queue. No extra RX thread.
     Advanced direct channel reads must not be mixed with this facade.
     """
@@ -85,7 +85,7 @@ class Connection:
             self._rx_lock.release()
 
     def receive(self, timeout=1.0):
-        """Compatibility alias for recv_event(); it still returns Event."""
+        """Alias for recv_event(); returns Event."""
         return self.recv_event(timeout)
 
     def recv(self, timeout=1.0):

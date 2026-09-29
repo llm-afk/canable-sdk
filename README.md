@@ -1,21 +1,16 @@
 # CANable SDK 0.1.4
 
-常用接口收敛为：列设备、打开连接、发送、接收、读状态。
+面向 CANable USB-CAN 适配器的 Windows Python SDK，提供设备发现、连接管理、CAN 帧收发和控制器状态查询。
 基于 Windows WinUSB，Python >=3.10，无第三方运行时依赖。
 面向当前 Elmue Candlelight 扩展固件，SLCAN 尚未实现。
 
-## 名称与安装
+## 安装
 
 项目 / GitHub 仓库：`canable-sdk`；Python 导入与命令：`canable`。
 从本地目录安装：`python -m pip install .`；命令行枚举：`python -m canable list`。
-支持范围仍是上述 Elmue Candlelight 固件，并不因改名而支持所有 CANable 固件。
+要求 Elmue Candlelight 固件 >= `0x260618`，且设备支持 Elmue 扩展协议。
 
-旧 `import canable25`、子模块导入和 `python -m canable25` 保留兼容入口，
-与新入口使用同一套实现。新项目请使用 `canable`。
-发行包名称已经变为 `canable-sdk`：下游 pyproject/requirements 的
-`canable25` 依赖需要改为 `canable-sdk>=0.1.4,<0.2`；
-导入兼容不等于 pip 发行包依赖兼容。旧发行包已安装时，建议先卸载旧包再安装本目录。
-本机保留旧文件夹名的目录链接，以兼容已有项目的路径引用。
+应用依赖声明使用 `canable-sdk>=0.1.4,<0.2`。兼容入口与安装注意事项见 [COMPATIBILITY.md](COMPATIBILITY.md)。
 
 ## 常用接口
 
@@ -90,7 +85,7 @@ if event is not None and event.kind == "frame":
 ```
 
 同一连接首次接收时选定模式，此后 recv 与 recv_event 禁止混用。
-旧 receive() 保留为 recv_event() 的兼容别名，仍返回 Event。
+receive() 是 recv_event() 的别名，返回 Event。
 同一连接同时只允许一个接收消费者，竞争调用明确报错，不互相抢事件。
 不要绕过连接直接读 can.channel.receive() 后再使用上面的接口。
 
@@ -101,13 +96,12 @@ recv 返回的 Frame 不包含事件时间戳，精确时间记录请使用 recv
 ## 高级与维护能力
 
 过滤、桥接、终端电阻、总线负载配置、用户数据区、BOOT0 和 DFU 入口保留在
-原 Device/Channel API；见 ADVANCED.md。普通程序不必理解这些接口。
+Device/Channel API；见 ADVANCED.md。普通程序不必理解这些接口。
 需要停止时配置的功能，应使用 Device.open → channel.configure → 配置 → start 流程，
 而不是已经启动的 open_can 简化入口。
 维护操作仍要求所有通道停止；enter_dfu 只是进入模式，不负责刷写。
 
-本轮未增加发送优先级、业务应答匹配、自动重连、自动周期发送等策略。
-该 SDK 只提供通用 CAN 帧通信，不解释帧中业务数据。
+SDK 负责 CAN 帧传输；发送调度、业务应答匹配、重连和周期控制由应用层管理。
 
 ## 运行与验证
 
@@ -119,5 +113,5 @@ recv 返回的 Frame 不包含事件时间戳，精确时间记录请使用 recv
 ```
 
 可用 CANABLE_PYTHON 指定 Python。安装用 python -m pip install .。
-本轮只做离线接口与安装验证，未操作实机。
-此前内部环回记录属于历史验收，不能代替新版外部总线/性能验证。
+0.1.4 的源码及安装包均通过 75 项离线测试。实机内部环回记录对应 0.1.3；
+外部总线互通与持续性能尚未验证。测试范围与报告见 [VALIDATION.md](VALIDATION.md)。

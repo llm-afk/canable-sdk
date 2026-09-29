@@ -1,11 +1,11 @@
 # Advanced API reference
 
-For the current simple API use README.md. Historical hardware evidence below does not imply all features have been tested.
+常用接口见 [README.md](README.md)。本文介绍设备、通道、协议和维护接口。
 
 # CANable SDK
 
 独立、零第三方运行时依赖的 Python 包，基于 Windows 自带 WinUSB，通过 `ctypes` 调用。
-第一版实现上游 CANable 固件的 **Candlelight / Elmue 扩展协议**。SLCAN 是后续独立后端，目前未实现。
+支持 CANable 固件的 **Candlelight / Elmue 扩展协议**，不支持 SLCAN。
 当前版本 0.1.4 已通过离线与安装验证；0.1.3 曾通过一台 STM32G431 Multiboard 的内部环回验收。
 外部 CAN 总线互通、性能、长时间运行仍待验收。
 
@@ -49,7 +49,7 @@ python -m canable info --serial YOUR_SERIAL
 `list` / `info` 只读取 USB 描述符、固件版本和能力，**不会 reset、start CAN 或切换 DFU**。
 无设备时输出 `[]`。忙碌/无权限的接口保留 `path` 与 `error`，不会被当成“没插设备”静默忽略。
 枚举会只读查询该 VID/PID 的 WinUSB 注册 GUID，兼容 INF/Zadig 改过 GUID 的 Windows 安装，
-不修改驱动或注册表。本次真机使用的 CAN GUID 为 `D62F2386-83BC-4AB7-9E4A-2856D8E8DA56`。
+不修改驱动或注册表。验证设备使用的 CAN GUID 为 `D62F2386-83BC-4AB7-9E4A-2856D8E8DA56`。
 `info` 只读取无需激活 Elmue 的字段；更详细的板型通过配置后 `device.board_info()` 查询。
 
 ## 最小用法
@@ -88,7 +88,7 @@ with Device.open(serial="YOUR_SERIAL") as device:
 **固件兼容细节：** 当前固件对“已经关闭”的通道执行 reset 不会清除先前设置的 FD 位时序。
 为保证 FD→经典 CAN 的重新配置不会残留，`configure()` 会在内部进行一次“内部环回启动→停止”，
 不提交任何帧，也不对外发送 CAN 或 ACK；随后设置最终配置。它会改变控制器状态，所以 `configure()`
-不是只读 API。内部环回能力是本版要求之一。该兼容路径已在本次 STM32G431 Multiboard 上验证。
+不是只读 API。内部环回能力是运行要求之一。该兼容路径已在STM32G431 Multiboard 上验证。
 
 `configure()` 会清除本通道之前的过滤器、桥接配置和负载报告间隔；按下面顺序配置：
 
@@ -191,7 +191,7 @@ Tx echo 和调试事件也占队列，长期测试必须持续消费。队列满
 FD 帧另加 `--fd`，需要 BRS 时再加 `--brs`，同时必须指定 `--data-bitrate`。
 例如 8 Mbit/s 的采样点应结合板卡实测选择；SDK 不把作者某块板的结果当作所有板的保证。
 
-## 目录与后续复用
+## 项目结构
 
 ```text
 src/canable/
@@ -201,14 +201,14 @@ src/canable/
   winusb.py       Windows API、USB 传输和句柄
   device.py       设备归属、通道管理、控制事务和维护
   channel.py      生命周期、队列、收发与完成事件
-  __main__.py     显式 CLI
+  connection.py   应用连接、帧接收与事件接收
+  __main__.py     命令行入口
 tests/            标准库 unittest，不需要设备
 examples/         接收与发送脚本
 ```
 
-以后增加 SLCAN：保留 `Frame/Event/CanChannel` 契约，新增串口传输与 ASCII 编解码及会话实现。
-不支持的能力明确报错；不把“串口命令成功”伪装成硬件发送完成。CANopen/MIT/产测报告作为上层包。
-本版没有依赖 python-can；之后可单独实现 python-can 适配层，无需把电机协议塞入传输 SDK。
+`Frame/Event/CanChannel` 定义传输数据与通道接口；CANopen、MIT 和产测逻辑由应用层实现。
+SDK 使用 Windows WinUSB，不依赖 python-can。
 
 ## 验证
 
@@ -216,7 +216,7 @@ examples/         接收与发送脚本
 .\sdk.ps1 test
 ```
 
-本次内部环回验收可按原参数复跑（会配置/启停内部环回，不向外部 CAN 发帧）：
+内部环回测试可按原参数复跑（会配置/启停内部环回，不向外部 CAN 发帧）：
 
 ```powershell
 .\sdk.ps1 loopback-suite --serial 20903498384550052 --rounds 10 --output .\validation\hardware-loopback-repeat.json

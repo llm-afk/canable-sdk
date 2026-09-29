@@ -5,7 +5,6 @@ This is a standalone Python SDK repository. It does not require a local firmware
 - Upstream: https://github.com/Elmue/CANable-2.5-firmware-Slcan-and-Candlelight
 - Inspected commit: `e862f6a6b609ddee22d071e439ebaee1a52010ff`
 - Firmware version: `0x260803`
-- SDK version: `0.1.1`
 
 Paths such as `Firmware/Candlelight/candlelight_def.h` and `SampleApplication C++/Source/Candlelight/`
 mentioned in source comments or THIRD_PARTY_NOTICES.md refer to that upstream repository.

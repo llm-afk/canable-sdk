@@ -1,4 +1,4 @@
-"""Compatibility imports for applications using the former canable25 name."""
+"""Compatibility namespace for the canable API."""
 import importlib as _importlib
 import sys as _sys
 from canable import *

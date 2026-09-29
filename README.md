@@ -7,7 +7,17 @@
 ## 安装
 
 项目 / GitHub 仓库：`canable-sdk`；Python 导入与命令：`canable`。
-从本地目录安装：`python -m pip install .`；命令行枚举：`python -m canable list`。
+在项目根目录执行：
+
+```powershell
+python -m pip install .
+python -m canable list
+```
+
+`python -m pip install .` 将当前目录的 SDK 安装到所选 Python 环境，
+安装后应用可在任意目录使用 `from canable import ...`。
+也可以将 `.` 换成 SDK 的绝对路径。此操作不安装 USB 驱动，也不烧录适配器固件。
+每个 Python 环境单独安装；普通安装后修改 SDK 源码，需要重新安装才能使用修改后的代码。
 要求 Elmue Candlelight 固件 >= `0x260618`，且设备支持 Elmue 扩展协议。
 
 应用依赖声明使用 `canable-sdk>=0.1.5,<0.2`。兼容入口与安装注意事项见 [COMPATIBILITY.md](COMPATIBILITY.md)。
@@ -35,6 +45,43 @@ open_can 默认经典 CAN 1 Mbps；使用 FD 时显式设置 data_bitrate。
 
 `open_can()` 完成设备选择、参数检查、通道配置和启动。退出 `with` 时释放资源。
 
+**所有配置参数都是可选的，省略时使用下表中的默认值。**
+仅有一个可用适配器时，最简用法为：
+
+```python
+from canable import open_can
+
+with open_can() as can:
+    frame = can.recv(timeout=0.1)
+    if frame is not None:
+        print(hex(frame.arbitration_id), frame.data.hex())
+```
+
+此时使用第 0 通道、1 Mbps 经典 CAN、正常收发模式，接收全部 CAN ID。
+正常模式会参与总线 ACK。`recv()` 从接收队列取数据，不会发送查询指令。
+
+只需填写与默认值不同的参数：
+
+```python
+# 500 kbps 经典 CAN
+with open_can(bitrate=500_000) as can:
+    frame = can.recv(timeout=0.1)
+
+# CAN FD：1 Mbps 仲裁域、4 Mbps 数据域
+with open_can(data_bitrate=4_000_000) as can:
+    frame = can.recv(timeout=0.1)
+
+# 多适配器时，通过序列号选择
+with open_can(serial="YOUR_SERIAL") as can:
+    frame = can.recv(timeout=0.1)
+```
+
+**默认配置不会自动识别总线参数。** 波特率、FD 数据速率等必须与所连接的总线一致。
+启用 FD 后，发送 FD 帧还需设置 `Frame(..., fd=True)`；使用速率切换时加 `brs=True`。
+
+下面展示多个配置项的组合用法，不要求每次都完整填写：
+
+
 ```python
 from canable import open_can, CanFilter
 
@@ -60,13 +107,19 @@ with open_can(
 | bitrate | 1000000 | 经典 CAN / FD 仲裁域速率，bit/s |
 | data_bitrate | None | FD 数据域速率；None 使用经典 CAN |
 | sample_point | 0.75 | 仲裁域目标采样点，0 到 1 之间 |
-| data_sample_point | 0.75 | FD 数据域目标采样点，0 到 1 之间 |
+| data_sample_point | 0.75 | FD 数据域目标采样点，0 到 1 之间；仅启用 FD 时使用 |
 | mode | normal | normal、listen_only、internal_loopback、external_loopback |
 | one_shot | False | True 禁用控制器自动重发 |
 | queue_size | 4096 | 主机接收事件队列容量，包含帧、回执与诊断事件 |
 | filters | None | 接收过滤规则，最多 8 条；None 或空列表接收全部 ID |
 | termination | None | 不改变终端电阻；True/False 要求硬件支持软件控制 |
 | bus_load_interval_ms | None | 不显式设置上报周期；0 关闭；100–10000 ms、步长 100 |
+
+`None` 的含义取决于参数：`data_bitrate=None` 表示经典 CAN，
+`filters=None` 表示接收全部 ID；`termination=None` 表示不改变终端电阻状态，
+`bus_load_interval_ms=None` 表示不主动设置负载上报周期。
+需要明确关闭终端电阻时使用 `termination=False`（要求硬件支持），
+需要明确关闭负载上报时使用 `bus_load_interval_ms=0`。
 
 过滤规则按 `(received_id & mask) == (can_id & mask)` 匹配，多条规则为“或”关系。
 `CanFilter(0x181, 0x7FF)` 精确匹配标准 ID 0x181；
@@ -120,6 +173,7 @@ USB 出错时可能已经发出部分帧，会明确报告不确定，不能盲�
 ## 选择一种接收方式
 
 普通应用用 recv()：
+
 - 返回 Frame 或 None。
 - 错误/未知事件抛 CanEventError，原事件在 exception.event。
 - Tx echo 已由底层送到对应回执，不再作为 CAN 帧返回。
